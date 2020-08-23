@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Models\Admins\Category;
 use App\Traits\ImageTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
@@ -13,6 +13,7 @@ class CategoryController extends Controller
     use ImageTrait;
     public function index()
     {
+
         $category = Category::latest()->get();
         return view('admin.manage_category', compact('category'));
     }
@@ -59,12 +60,12 @@ class CategoryController extends Controller
             $category = Category::find($id);
 
             Category::where('id', $id)->update([
-                'category_name' => $request->category_ame,
+                'category_name' => $request->category_name,
             ]);
 
             // Call Old Image Function and delete the image
             if ($request->hasFile('category_image')) {
-                $this->checkOld('images/category_images', $category->category_image);
+                $this->checkOld('images/category_images/', $category->category_image);
                 // Call the saveImage Function From Traits
                 $filename = $this->saveImage($request->category_image, 'images/category_images');
                 //Update Record with the new image
@@ -92,6 +93,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return redirect()->back()->with(['success' => 'Category Delete Successfully']);
+        return redirect()->back()->with(['success' => 'Category Deleted Successfully']);
     }
 }

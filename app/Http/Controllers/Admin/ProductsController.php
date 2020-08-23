@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Product;
-use App\Models\Category;
+use App\Models\Admins\Product;
+use App\Models\Admins\Category;
 use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,10 +15,16 @@ class ProductsController extends Controller
     use ImageTrait;
     public function index()
     {
+
         $category = Category::all();
+
+
+
+
         $product = Category::select('*')
             ->join('products', 'products.category_id', '=', 'categories.id')
-            ->latest('products.id')->get();
+            ->latest('products.id')->paginate(PAGINATION);
+
 
         return view('admin.manage_products', compact('product', 'category'));
     }

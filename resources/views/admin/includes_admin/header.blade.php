@@ -52,7 +52,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            {{-- {{route('admin.index')}} --}}
+
             <a href="{{route('admin.index')}}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>

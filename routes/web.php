@@ -11,11 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace' => 'User'], function () {
+    Route::get('/', 'HomeController@index')->name('homepage');
+    Route::get('/shop/{id}', 'HomeController@showAllProducts')->name('shop');
+    Route::get('/single-details/{id}', 'HomeController@showSingleProduct')->name('single_product');
+    Route::post('/single-details/{id}', 'CartController@addToCart')->name('add_to_cart');
+    Route::get('/cart/{id}', 'CartController@remove')->name('cart_remove');
 });
 
 
-// Auth::routes();
+Route::group(['namespace' => 'User', 'middleware' => 'guest'], function () {
+    Auth::routes(['verify' => 'true']);
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('register', 'Auth\RegisterController@create')->name('register');
+    Route::get('login', 'Auth\LoginController@getLogin')->name('get_login');
+    Route::post('login', 'Auth\LoginController@login')->name('login');
+    Route::get('verify/{token}', 'Auth\RegisterController@verifyEmail')->name('verify');
+});
+
+Route::group(['namespace' => 'User', 'middleware' => ['auth', 'verified']], function () {
+});

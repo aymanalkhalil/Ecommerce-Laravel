@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'cat_id' => 'required',
-            'prod_name' => 'required',
+            'prod_name' => 'required|unique:products',
             'prod_desc' => 'required',
             'prod_price' => 'required|numeric',
             'prod_image' => 'required_without:id|mimes:jpeg,bmp,png',
@@ -34,6 +34,7 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
+            'unique'=>'This product is already exist',
             'required' => 'This field is reqiured',
             'numeric' => 'This field must be in numbers',
             'required_without' => 'This field is reqiured in create only',

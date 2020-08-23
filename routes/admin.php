@@ -10,6 +10,10 @@
 | contains the "Admin" middleware group. Now create something great!
 |
 */
+if (!defined('PAGINATION')) {
+    define('PAGINATION', 5);
+}
+
 
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'], function () {

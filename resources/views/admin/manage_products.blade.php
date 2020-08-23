@@ -1,6 +1,5 @@
-@section('title')
-Manage Products
-@stop
+@section('title','Manage Products')
+
 @include('admin.includes_admin.header')
 
 
@@ -26,7 +25,7 @@ Manage Products
             <div class="col-md-12">
                 @include('admin.includes_admin.alerts.success')
                 <!-- general form elements disabled -->
-                <div class="box box-info">
+                <div class="box box-danger">
                     <div class="box-header with-border">
                         {{-- <h3 class="box-title">General Elements</h3> --}}
                     </div>
@@ -35,7 +34,7 @@ Manage Products
                         <form role="form" method="POST" action='{{route('manage_products.store')}}'
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
+                            <div class="form-group {{$errors->has('cat_id') ? 'has-error' : ''}} ">
                                 <label>Choose Product Category</label>
                                 <select class="form-control" name='cat_id'>
                                     <option disabled selected>Choose Category </option>
@@ -43,6 +42,9 @@ Manage Products
                                     <option value='{{$categories->id}}'>{{$categories->category_name}}</option>
                                     @endforeach
                                 </select>
+                                @error('cat_id')
+                                <p class="help-block">{{$message}}</p>
+                                @enderror
                             </div>
                             <!-- text input -->
                             <div class="form-group {{$errors->has('prod_name')? 'has-error' : ''}}">
@@ -82,7 +84,7 @@ Manage Products
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class='btn btn-info'>Add Product</button>
+                                <button type="submit" class='btn btn-info col-xs-12 '>Add Product</button>
 
                             </div>
                         </form>
@@ -101,7 +103,8 @@ Manage Products
         <!-- /.row -->
         <div class="row">
             <div class="col-xs-12">
-                <div class="box">
+                <div class="box box-danger">
+
                     <div class="box-header">
                         <h3 class="box-title">Products Table</h3>
 
@@ -110,10 +113,13 @@ Manage Products
                                 <input type="text" name="table_search" class="form-control pull-right"
                                     placeholder="Search">
 
+
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                                 </div>
+
                             </div>
+
                         </div>
                     </div>
 
@@ -261,7 +267,11 @@ Manage Products
                             $i++;
                             @endphp
                             @endforeach
+
                         </table>
+                        <div class="col-md-6">
+                            {{ $product->links() }}
+                        </div>
 
                     </div>
                     <!-- /.box-body -->
@@ -274,3 +284,16 @@ Manage Products
 
 
 @include('admin.includes_admin.footer')
+{{-- <script>
+    $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script> --}}

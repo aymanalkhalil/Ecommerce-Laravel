@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin;
+use App\Models\Admins\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,6 @@ class LoginController extends Controller
     public function getLogin()
     {
         return view('admin.authAdmin.login');
-
 
     }
 
