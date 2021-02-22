@@ -33,7 +33,7 @@ class HomeController extends Controller
 
         $single_product = Product::where('id', $prod_id)->get();
 
-        return view('public.single-product', compact('single_product'));
-    }
+            return view('public.single-product', compact('single_product'));
 
+    }
 }

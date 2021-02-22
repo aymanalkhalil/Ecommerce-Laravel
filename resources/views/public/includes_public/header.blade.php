@@ -151,7 +151,7 @@
                     @foreach (session()->get('products') as $key => $value)
                     @php
 
-                    $cart_items = App\Models\Admin\Product::find($value);
+                    $cart_items = App\Models\Admins\Product::find($value);
                     // $cart_items->prod_price;
                     // $cart_items->prod_price;
                     $sum[] = $cart_items->prod_price;
@@ -215,7 +215,7 @@
                     <a href="{{ route('get_login') }}" class="btn essence-btn">you are not logged in</a>
                     @endguest
                     @auth('web')
-                    <a href="checkout.html" class="btn essence-btn">CheckOut </a>
+                    <a href="{{ route('checkout') }}" class="btn essence-btn">CheckOut </a>
                     @endauth
 
                     {{-- <a href="checkout.html" class="btn essence-btn">check out</a> --}}

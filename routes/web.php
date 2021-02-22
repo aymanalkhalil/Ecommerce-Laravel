@@ -29,5 +29,7 @@ Route::group(['namespace' => 'User', 'middleware' => 'guest'], function () {
     Route::get('verify/{token}', 'Auth\RegisterController@verifyEmail')->name('verify');
 });
 
-Route::group(['namespace' => 'User', 'middleware' => ['auth', 'verified']], function () {
+Route::group(['namespace' => 'User', 'middleware' => ['auth']], function () {
+    Route::get('checkout', 'CheckoutController@index')->name('checkout');
+
 });
